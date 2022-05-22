@@ -1,8 +1,9 @@
-package com.example.androidsoa;
+package com.example.androidsoa.Login;
 
 public interface ILogin {
     interface View{
         void showResult(String result);
+        void moveToPrincipal();
     }
     interface Presenter{
         void showResult(boolean result);

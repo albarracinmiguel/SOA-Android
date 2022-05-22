@@ -14,7 +14,10 @@
         android:theme="@style/Theme.AndroidSOA"
         tools:targetApi="31">
         <activity
-            android:name=".LoginView"
+            android:name=".Principal.PrincipalView"
+            android:exported="false" />
+        <activity
+            android:name=".Login.LoginView"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package com.example.androidsoa;
+package com.example.androidsoa.Login;
 
 public class LoginPresenter implements ILogin.Presenter{
 
@@ -14,10 +14,10 @@ public class LoginPresenter implements ILogin.Presenter{
     public void showResult(boolean result) {
         if(view != null){
             if(result){
-                view.showResult("Usuario Valido");
+                view.moveToPrincipal();
             }
             else{
-                view.showResult("Usuario Invalido");
+                view.showResult("Usuario Invalido, ingrese nuevo usuario");
             }
         }
     }

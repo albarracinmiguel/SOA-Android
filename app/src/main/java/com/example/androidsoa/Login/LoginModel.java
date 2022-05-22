@@ -1,4 +1,4 @@
-package com.example.androidsoa;
+package com.example.androidsoa.Login;
 
 public class LoginModel implements ILogin.Model{
     private ILogin.Presenter presenter;
@@ -10,12 +10,7 @@ public class LoginModel implements ILogin.Model{
 
     @Override
     public void checkUser(String username, String password) {
-        if(username.equals("rodri") && password.equals("123")){
-            result = true;
-        }
-        else {
-            result = false;
-        }
+        result = username.equals("rodri") && password.equals("123");
         presenter.showResult(result);
     }
 }
