@@ -7,6 +7,5 @@ public class PrincipalPresenter implements IPrincipal.Presenter{
     public PrincipalPresenter(IPrincipal.View view){
         this.view = view;
         this.model = new PrincipalModel(this);
-
     }
 }

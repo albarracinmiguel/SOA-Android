@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.androidsoa.Principal.PrincipalView;
 import com.example.androidsoa.R;
+import com.example.androidsoa.Signup.SignupView;
 
 public class LoginView extends AppCompatActivity implements ILogin.View{
 
@@ -28,15 +29,21 @@ public class LoginView extends AppCompatActivity implements ILogin.View{
     }
 
     public void login(View view){
+        error.setVisibility(View.INVISIBLE);
         presenter.checkUser(username.getText().toString(), password.getText().toString());
     }
 
     @Override
     public void showResult(String result) {
+        error.setVisibility(View.VISIBLE);
         error.setText(result);
     }
 
     public void moveToPrincipal(){
         startActivity(new Intent(LoginView.this, PrincipalView.class));
+    }
+
+    public void moveToSignup(View view){
+        startActivity(new Intent(LoginView.this, SignupView.class));
     }
 }
