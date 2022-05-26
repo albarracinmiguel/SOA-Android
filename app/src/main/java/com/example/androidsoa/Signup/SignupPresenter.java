@@ -1,12 +1,12 @@
 package com.example.androidsoa.Signup;
 
-import android.nfc.Tag;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.androidsoa.Services.ISoaService;
 import com.example.androidsoa.Services.SoaRequest;
 import com.example.androidsoa.Services.SoaResponse;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -17,15 +17,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SignupPresenter implements  ISignup.Presenter {
     private ISignup.View view;
     private ISignup.Model model;
+    private ISignup.Repository repository;
     private static String TAG = SignupPresenter.class.getName();
 
-    public SignupPresenter(ISignup.View view){
+    public SignupPresenter(ISignup.View view, ISignup.Repository repository){
         this.view = view;
         this.model = new SignupModel(this);
+        this.repository = repository;
     }
 
     @Override
     public void registerUser(SoaRequest soaRequest) {
+        repository.addContact(soaRequest);
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl("http://so-unlam.net.ar/api/").build();
@@ -49,6 +52,15 @@ public class SignupPresenter implements  ISignup.Presenter {
                 Log.e(TAG, t.getMessage());
             }
         });
+    }
+
+    @Override
+    public void getList() {
+        List<SoaRequest> aux = repository.getAllContacts();
+        for (SoaRequest contact: aux) {
+            Log.i(TAG, contact.getName());
+        }
+
     }
 
 }

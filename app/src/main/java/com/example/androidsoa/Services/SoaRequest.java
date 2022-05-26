@@ -53,4 +53,5 @@ public class SoaRequest {
         if(!group.equals(""))
             this.group = Long.parseLong(group);
     }
+    public SoaRequest(){};
 }

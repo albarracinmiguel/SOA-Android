@@ -1,8 +1,8 @@
 package com.example.androidsoa.Signup;
 
-import android.view.View;
-
 import com.example.androidsoa.Services.SoaRequest;
+
+import java.util.List;
 
 public interface ISignup {
     interface View{
@@ -13,8 +13,13 @@ public interface ISignup {
     }
     interface Presenter{
         void registerUser(SoaRequest soaRequest);
+        void getList();
     }
     interface Model{
 
+    }
+    interface Repository{
+        void addContact(SoaRequest contact);
+        List<SoaRequest> getAllContacts();
     }
 }
