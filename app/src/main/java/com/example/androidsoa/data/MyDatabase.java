@@ -1,4 +1,4 @@
-package com.example.androidsoa.Signup;
+package com.example.androidsoa.data;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,16 +6,21 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.androidsoa.Services.SoaRequest;
+import com.example.androidsoa.network.SOAService.SOARequest;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SignupRepository extends SQLiteOpenHelper implements ISignup.Repository{
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
+public class MyDatabase extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "ContactsDB";
     private static final String TABLE_CONTACTS = "contacts";
     private static final String KEY_ID = "id";
+    private static final String KEY_USERNAME = "userName";
     private static final String KEY_NAME = "name";
     private static final String KEY_LASTNAME = "lastName";
     private static final String KEY_EMAIL = "email";
@@ -24,8 +29,8 @@ public class SignupRepository extends SQLiteOpenHelper implements ISignup.Reposi
     private static final String KEY_COMMISSION = "comission";
     private static final String KEY_GROUP = "groupNumber";
 
-
-    public SignupRepository(Context context) {
+    @Inject
+    public MyDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -33,6 +38,7 @@ public class SignupRepository extends SQLiteOpenHelper implements ISignup.Reposi
     public void onCreate(SQLiteDatabase db) {
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_CONTACTS + "("
                 + KEY_ID + " INTEGER PRIMARY KEY,"
+                + KEY_USERNAME + "TEXT, "
                 + KEY_NAME + " TEXT,"
                 + KEY_LASTNAME + " TEXT,"
                 + KEY_EMAIL + " TEXT,"
@@ -51,8 +57,7 @@ public class SignupRepository extends SQLiteOpenHelper implements ISignup.Reposi
         onCreate(db);
     }
 
-    @Override
-    public void addContact(SoaRequest contact) {
+    public void addContact(SOARequest contact) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -67,9 +72,8 @@ public class SignupRepository extends SQLiteOpenHelper implements ISignup.Reposi
         db.close(); // Closing database connection
     }
 
-    @Override
-    public List<SoaRequest> getAllContacts() {
-        List<SoaRequest> contactList = new ArrayList<SoaRequest>();
+    public List<SOARequest> getAllContacts() {
+        List<SOARequest> contactList = new ArrayList<SOARequest>();
         // Select All Query
         String selectQuery = "SELECT  * FROM " + TABLE_CONTACTS;
 
@@ -79,7 +83,7 @@ public class SignupRepository extends SQLiteOpenHelper implements ISignup.Reposi
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                SoaRequest contact = new SoaRequest();
+                SOARequest contact = new SOARequest();
                 // contact.setID(Integer.parseInt(cursor.getString(0)));
                 contact.setEnv("TEST");
                 contact.setName(cursor.getString(1));

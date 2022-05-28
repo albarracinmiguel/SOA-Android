@@ -1,8 +1,8 @@
-package com.example.androidsoa.Services;
+package com.example.androidsoa.network.SOAService;
 
 import com.google.gson.annotations.SerializedName;
 
-public class SoaRequest {
+public class SOARequest {
     @SerializedName("env")
     private String env;
     @SerializedName("name")
@@ -40,7 +40,7 @@ public class SoaRequest {
     public void setComission(long comission) { this.commission = commission; }
     public void setGroup(long group) { this.group = group; }
 
-    public SoaRequest(String name, String lastName, String email, String password, String dni, String commission, String group){
+    public SOARequest(String name, String lastName, String email, String password, String dni, String commission, String group){
         this.env = "TEST";
         this.name = name;
         this.lastName = lastName;
@@ -53,5 +53,5 @@ public class SoaRequest {
         if(!group.equals(""))
             this.group = Long.parseLong(group);
     }
-    public SoaRequest(){};
+    public SOARequest(){};
 }

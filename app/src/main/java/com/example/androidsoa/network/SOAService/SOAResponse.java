@@ -1,6 +1,6 @@
-package com.example.androidsoa.Services;
+package com.example.androidsoa.network.SOAService;
 import  com.google.gson.annotations.SerializedName;
-public class SoaResponse {
+public class SOAResponse {
     private Boolean success;
     private String env;
     private String token;
