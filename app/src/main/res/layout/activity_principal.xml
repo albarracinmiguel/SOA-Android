@@ -21,21 +21,34 @@
         android:id="@+id/PokemonNameTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="29dp"
-        android:layout_marginEnd="15dp"
-        android:text="PokemonName"
+        android:layout_marginTop="30dp"
+        android:text="Pokemon name"
         app:layout_constraintEnd_toEndOf="@+id/PokemonImg"
+        app:layout_constraintStart_toStartOf="@+id/PokemonImg"
         app:layout_constraintTop_toBottomOf="@+id/PokemonImg" />
+
+    <TextView
+        android:id="@+id/PokemonDescTxt"
+        android:layout_width="225dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="30dp"
+        android:text="Pokemon Description"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@+id/PokemonNameTxt"
+        app:layout_constraintStart_toStartOf="@+id/PokemonNameTxt"
+        app:layout_constraintTop_toBottomOf="@+id/PokemonNameTxt"
+        tools:layout_editor_absoluteX="95dp" />
 
     <Button
         android:id="@+id/RandomPokemonBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="225dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="30dp"
         android:onClick="getRandomPokemon"
         android:text="Get Random Pokemon"
-        tools:layout_editor_absoluteX="159dp"
-        tools:layout_editor_absoluteY="343dp"
-        app:layout_constraintEnd_toEndOf="@+id/PokemonImg"
-        app:layout_constraintTop_toBottomOf="@+id/PokemonImg"/>
+        app:layout_constraintEnd_toEndOf="@+id/PokemonDescTxt"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="@+id/PokemonDescTxt"
+        app:layout_constraintTop_toBottomOf="@+id/PokemonDescTxt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,6 +13,7 @@ public class PokemonClient implements IPokemonClient {
     private static final String USER_AGENT = "Mozilla/5.0";
 
     public void getPokemon(String name) {
+        System.out.println("GET POKEMON IN CLIENT");
         try {
             this.sendRequest(name);
         } catch (Exception ioException) {
@@ -21,7 +22,8 @@ public class PokemonClient implements IPokemonClient {
     }
 
     public void sendRequest(String identifier) throws Exception {
-        URL obj = new URL(Constants.POKEMON_API + identifier);
+        System.out.println("SEND REQUEST");
+        /*URL obj = new URL(Constants.POKEMON_API + identifier);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod(GET_METHOD);
         con.setRequestProperty("User-Agent", USER_AGENT);
@@ -42,6 +44,6 @@ public class PokemonClient implements IPokemonClient {
             System.out.println(response);
         } else {
             System.out.println("GET request not worked");
-        }
+        }*/
     }
 }
