@@ -9,9 +9,5 @@ public interface IPrincipal {
     }
 
     interface Model {
-
-        void getRandomPokemon();
-
-        void getPokemon(String identifier);
     }
 }

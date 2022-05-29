@@ -6,15 +6,21 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.androidsoa.R;
+import com.example.androidsoa.network.PokemonService.PokemonApi;
+
+import javax.inject.Inject;
 
 public class PrincipalView extends AppCompatActivity implements IPrincipal.View {
+    @Inject
+    PokemonApi pokemonApi;
+
     private IPrincipal.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
-        presenter = new PrincipalPresenter(this);
+        presenter = new PrincipalPresenter(this, pokemonApi);
         System.out.println("------------ PRINCIPAL VIEW -------------------");
     }
 
