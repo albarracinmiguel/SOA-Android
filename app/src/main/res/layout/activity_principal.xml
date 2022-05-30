@@ -28,11 +28,11 @@
         app:layout_constraintTop_toBottomOf="@+id/PokemonImg" />
 
     <TextView
-        android:id="@+id/PokemonDescTxt"
+        android:id="@+id/PokemonTypeTxt"
         android:layout_width="225dp"
         android:layout_height="60dp"
         android:layout_marginTop="30dp"
-        android:text="Pokemon Description"
+        android:text="Pokemon types"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="@+id/PokemonNameTxt"
         app:layout_constraintStart_toStartOf="@+id/PokemonNameTxt"
@@ -46,9 +46,9 @@
         android:layout_marginTop="30dp"
         android:onClick="getRandomPokemon"
         android:text="Get Random Pokemon"
-        app:layout_constraintEnd_toEndOf="@+id/PokemonDescTxt"
+        app:layout_constraintEnd_toEndOf="@+id/PokemonTypeTxt"
         app:layout_constraintHorizontal_bias="0.428"
-        app:layout_constraintStart_toStartOf="@+id/PokemonDescTxt"
-        app:layout_constraintTop_toBottomOf="@+id/PokemonDescTxt" />
+        app:layout_constraintStart_toStartOf="@+id/PokemonTypeTxt"
+        app:layout_constraintTop_toBottomOf="@+id/PokemonTypeTxt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
