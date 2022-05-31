@@ -23,7 +23,6 @@ public class PrincipalPresenter implements IPrincipal.Presenter {
     }
 
     public void getRandomPokemon() {
-        PokemonResponse pokemonResponse;
         int pokemonId = (int) (Math.random() * (Constants.MAX_POKEMON_ID + Constants.MIN_POKEMON_ID));
 
         pokemonApi.getRandom(Integer.toString(pokemonId));
