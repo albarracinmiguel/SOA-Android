@@ -34,9 +34,8 @@ public class PrincipalPresenter implements IPrincipal.Presenter {
                     PokemonResponse pokemonResponse = response.body();
                     view.showPokemon(pokemonResponse);
                 } else {
-                    System.out.println("HOLA FALLE" + response);
+                    Log.e(TAG, response.message());
                 }
-                Log.e(TAG, response.message());
             }
 
             @Override
