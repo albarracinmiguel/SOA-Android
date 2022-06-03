@@ -3,6 +3,7 @@ package com.example.androidsoa.di;
 import android.app.Application;
 
 import com.example.androidsoa.data.MyDatabase;
+import com.example.androidsoa.network.PokemonService.PokemonApi;
 import com.example.androidsoa.network.SOAService.SOAApi;
 import com.example.androidsoa.util.Constants;
 
@@ -23,14 +24,21 @@ public class ApplicationModule {
 
     @Singleton
     @Provides
-    static Retrofit provideRetrofitInstance(){
+    static Retrofit provideRetrofitInstance() {
         return new Retrofit.Builder().baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
+
     @Singleton
     @Provides
-    static SOAApi provideSoaService(Retrofit retrofit){
+    static SOAApi provideSoaService(Retrofit retrofit) {
         return retrofit.create(SOAApi.class);
+    }
+
+    @Singleton
+    @Provides
+    static PokemonApi providePokemonService(Retrofit retrofit) {
+        return retrofit.create(PokemonApi.class);
     }
 }
