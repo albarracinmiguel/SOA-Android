@@ -9,5 +9,8 @@ import retrofit2.http.Path;
 public interface PokemonApi {
 
     @GET(Constants.POKEMON_API)
-    Call<PokemonResponse> getRandom(@Path("identifier") String identifier);
+    Call<PokemonResponse> getPokemon(@Path("identifier") String identifier);
+
+    @GET(Constants.POKEMON_API_TYPE)
+    Call<TypeApiResponse> getRandomTypeData(@Path("type") String type);
 }

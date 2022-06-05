@@ -9,6 +9,8 @@ public interface IPrincipal {
 
     interface Presenter {
         void getRandomPokemon();
+
+        void getTypedPokemon(String type);
     }
 
     interface Model {
