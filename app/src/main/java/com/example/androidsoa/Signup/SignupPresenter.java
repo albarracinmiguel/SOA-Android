@@ -30,7 +30,6 @@ public class SignupPresenter implements ISignup.Presenter {
     @Override
     public void registerUser(SOARegisterRequest soaRegisterRequest, String userName) {
         String secret = generateSecretKey();
-        model.addContact(soaRegisterRequest);
         model.addUser(soaRegisterRequest, userName, secret);
 
         Call<SOARegisterResponse> call = soaApi.register(soaRegisterRequest);
@@ -54,16 +53,6 @@ public class SignupPresenter implements ISignup.Presenter {
         });
 
         view.signupSuccess(secret);
-    }
-
-    @Override
-    public void getList() {
-        List<SOARegisterRequest> aux = model
-                .getAllContacts();
-        for (SOARegisterRequest contact : aux) {
-            Log.i(TAG, contact.getName());
-        }
-
     }
 
     public static String generateSecretKey() {

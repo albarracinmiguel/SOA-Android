@@ -37,6 +37,13 @@ public class LoginModel implements ILogin.Model{
             return false;
     }
 
+    @Override
+    public void saveLogin() {
+        if(user!= null){
+            database.addLogin(user.userName);
+        }
+    }
+
     private static String getTOTPCode() {
         Base32 base32 = new Base32();
         byte[] bytes = base32.decode(user.otpSecret);

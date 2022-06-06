@@ -18,15 +18,9 @@ public interface ISignup {
 
     interface Presenter {
         void registerUser(SOARegisterRequest soaRequest, String userName);
-
-        void getList();
     }
 
     interface Model {
         void addUser(SOARegisterRequest contact, String userName, String secret);
-
-        void addContact(SOARegisterRequest contact);
-
-        List<SOARegisterRequest> getAllContacts();
     }
 }

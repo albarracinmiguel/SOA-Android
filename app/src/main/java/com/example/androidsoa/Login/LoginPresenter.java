@@ -50,8 +50,10 @@ public class LoginPresenter implements ILogin.Presenter {
 
     @Override
     public void checkValidOTP(String otp) {
-        if (model.checkOtp(otp))
+        if (model.checkOtp(otp)){
+            model.saveLogin();
             view.moveToPrincipal();
+        }
         else
             view.showError(ErrorConstants.INVALID_LOGIN);
     }

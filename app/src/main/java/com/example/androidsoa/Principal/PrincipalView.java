@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.androidsoa.History.HistoryView;
+import com.example.androidsoa.Login.LoginView;
 import com.example.androidsoa.R;
 import com.example.androidsoa.network.PokemonService.PokemonApi;
 import com.example.androidsoa.network.PokemonService.PokemonResponse;
@@ -70,6 +72,10 @@ public class PrincipalView extends DaggerAppCompatActivity implements IPrincipal
 
     public void getRandomPokemon(View view) {
         presenter.getRandomPokemon();
+    }
+
+    public void goToHistoy(View view) {
+        startActivity(new Intent(PrincipalView.this, HistoryView.class));
     }
 
     public void showPokemon(PokemonResponse pokemonResponse) {

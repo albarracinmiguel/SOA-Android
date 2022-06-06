@@ -35,5 +35,7 @@ public interface ILogin {
         void checkUser(String username, String password);
 
         boolean checkOtp(String otp);
+
+        void saveLogin();
     }
 }

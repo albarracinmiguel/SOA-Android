@@ -1,5 +1,6 @@
 package com.example.androidsoa.di;
 
+import com.example.androidsoa.History.HistoryView;
 import com.example.androidsoa.Login.LoginView;
 import com.example.androidsoa.Principal.PrincipalView;
 import com.example.androidsoa.Signup.SignupView;
@@ -18,4 +19,7 @@ public abstract class ActivityBuilderModule {
 
     @ContributesAndroidInjector
     abstract LoginView contributeLoginView();
+
+    @ContributesAndroidInjector
+    abstract HistoryView contributeHistoryView();
 }

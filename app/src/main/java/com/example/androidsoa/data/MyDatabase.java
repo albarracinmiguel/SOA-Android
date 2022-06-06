@@ -8,7 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.androidsoa.network.SOAService.Request.SOARegisterRequest;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -16,21 +18,15 @@ import javax.inject.Singleton;
 
 @Singleton
 public class MyDatabase extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     private static final String DATABASE_NAME = "ContactsDB";
-    private static final String TABLE_CONTACTS = "contacts";
     private static final String TABLE_USERS = "users";
+    private static final String TABLE_HISTORY = "loginHistory";
     private static final String KEY_ID = "id";
     private static final String KEY_USERNAME = "username";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_LASTNAME = "lastName";
-    private static final String KEY_EMAIL = "email";
     private static final String KEY_PASSWORD = "password";
-    private static final String KEY_DNI = "dni";
-    private static final String KEY_COMMISSION = "comission";
-    private static final String KEY_GROUP = "groupNumber";
     private static final String KEY_SECRET = "otpSecret";
-
+    private static final String KEY_DATE = "date";
 
     @Inject
     public MyDatabase(Context context) {
@@ -39,49 +35,27 @@ public class MyDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_CONTACTS + "("
-                + KEY_ID + " INTEGER PRIMARY KEY,"
-                + KEY_USERNAME + "TEXT, "
-                + KEY_NAME + " TEXT,"
-                + KEY_LASTNAME + " TEXT,"
-                + KEY_EMAIL + " TEXT,"
-                + KEY_PASSWORD + " TEXT,"
-                + KEY_DNI + " TEXT,"
-                + KEY_COMMISSION + " TEXT,"
-                + KEY_GROUP + " TEXT" + ")";
-        db.execSQL(CREATE_CONTACTS_TABLE);
-
         String CREATE_SOA_USER_TABLE = "CREATE TABLE " + TABLE_USERS + "("
                 + KEY_ID + " INTEGER PRIMARY KEY,"
                 + KEY_USERNAME + " TEXT, "
                 + KEY_PASSWORD + " TEXT,"
                 + KEY_SECRET + " TEXT)";
         db.execSQL(CREATE_SOA_USER_TABLE);
+
+        String CREATE_LOGIN_HISTORY_TABLE = "CREATE TABLE " + TABLE_HISTORY + "("
+                + KEY_ID + " INTEGER PRIMARY KEY,"
+                + KEY_USERNAME + " TEXT, "
+                + KEY_DATE + " DATETIME)";
+        db.execSQL(CREATE_LOGIN_HISTORY_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CONTACTS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
 
         // Create tables again
         onCreate(db);
-    }
-
-    public void addContact(SOARegisterRequest user) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(KEY_NAME, user.getName());
-        values.put(KEY_LASTNAME, user.getLastName());
-        values.put(KEY_EMAIL, user.getEmail());
-        values.put(KEY_PASSWORD, user.getPassword());
-
-        // Inserting Row
-        db.insert(TABLE_CONTACTS, null, values);
-        //2nd argument is String containing nullColumnHack
-        db.close(); // Closing database connection
     }
 
     public void addSoaUser(SOARegisterRequest contact, String userName, String secret) {
@@ -96,6 +70,20 @@ public class MyDatabase extends SQLiteOpenHelper {
         db.insert(TABLE_USERS, null, values);
         //2nd argument is String containing nullColumnHack
         db.close(); // Closing database connection
+    }
+
+    public void addLogin(String userName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_USERNAME, userName);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        values.put(KEY_DATE, dateFormat.format(date));
+
+        db.insert(TABLE_HISTORY, null, values);
+
+        db.close();
     }
 
     public SOAUser getSoaUser(String username) {
@@ -116,29 +104,20 @@ public class MyDatabase extends SQLiteOpenHelper {
         return user;
     }
 
-    public List<SOARegisterRequest> getAllContacts() {
-        List<SOARegisterRequest> contactList = new ArrayList<SOARegisterRequest>();
-        // Select All Query
-        String selectQuery = "SELECT  * FROM " + TABLE_CONTACTS;
+    public List<HistoryLogin> getLoginHistory() {
+        List<HistoryLogin> loginsList = new ArrayList<HistoryLogin>();
+        String selectQuery = "SELECT  * FROM " + TABLE_HISTORY;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-
-        // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                SOARegisterRequest contact = new SOARegisterRequest();
-                // contact.setID(Integer.parseInt(cursor.getString(0)));
-                contact.setEnv("TEST");
-                contact.setName(cursor.getString(1));
-                contact.setLastName(cursor.getString(2));
-                contact.setEmail(cursor.getString(3));
-                contact.setPassword(cursor.getString(4));
-                // Adding contact to list
-                contactList.add(contact);
+                HistoryLogin login = new HistoryLogin();
+                login.username = cursor.getString(1);
+                login.date = cursor.getString(2);
+                loginsList.add(login);
             } while (cursor.moveToNext());
         }
-        // return contact list
-        return contactList;
+        return loginsList;
     }
 }

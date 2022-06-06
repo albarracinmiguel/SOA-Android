@@ -18,14 +18,4 @@ public class SignupModel implements ISignup.Model {
     public void addUser(SOARegisterRequest contact, String userName, String secret) {
         database.addSoaUser(contact, userName, secret);
     }
-
-    @Override
-    public void addContact(SOARegisterRequest contact) {
-        database.addContact(contact);
-    }
-
-    @Override
-    public List<SOARegisterRequest> getAllContacts() {
-        return database.getAllContacts();
-    }
 }
