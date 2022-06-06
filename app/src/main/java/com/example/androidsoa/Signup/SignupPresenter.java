@@ -11,21 +11,24 @@ import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.codec
 
 import java.security.SecureRandom;
 import java.util.List;
+
 import javax.inject.Inject;
+
 import de.taimos.totp.TOTP;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SignupPresenter implements  ISignup.Presenter {
+public class SignupPresenter implements ISignup.Presenter {
     private ISignup.View view;
     private ISignup.Model model;
     private static String TAG = SignupPresenter.class.getName();
 
     private final SOAApi soaApi;
 
-    public SignupPresenter(ISignup.View view, SOAApi soaApi, MyDatabase database){
+    public SignupPresenter(ISignup.View view, SOAApi soaApi, MyDatabase database) {
         this.soaApi = soaApi;
         this.view = view;
         this.model = new SignupModel(this, database);
@@ -33,18 +36,22 @@ public class SignupPresenter implements  ISignup.Presenter {
 
     @Override
     public void registerUser(SOARegisterRequest soaRegisterRequest) {
+        System.out.println("HOLAAAAAA");
         model.addContact(soaRegisterRequest);
         Call<SOARegisterResponse> call = soaApi.register(soaRegisterRequest);
         call.enqueue(new Callback<SOARegisterResponse>() {
             @Override
             public void onResponse(Call<SOARegisterResponse> call, Response<SOARegisterResponse> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
+                    SOARegisterResponse soaRegisterResponse = response.body();
                     view.signupSuccess(secret);
-                }
-                else {
+                } else {
+                    ResponseBody errorResponse = response.errorBody();
+                    System.out.println(response.message());
+                    System.out.println(errorResponse.toString());
+                    Log.e(TAG, response.message());
                     view.signupFail();
                 }
-                Log.e(TAG, response.message());
             }
 
             @Override
@@ -61,7 +68,7 @@ public class SignupPresenter implements  ISignup.Presenter {
     public void getList() {
         List<SOARegisterRequest> aux = model
                 .getAllContacts();
-        for (SOARegisterRequest contact: aux) {
+        for (SOARegisterRequest contact : aux) {
             Log.i(TAG, contact.getName());
         }
 

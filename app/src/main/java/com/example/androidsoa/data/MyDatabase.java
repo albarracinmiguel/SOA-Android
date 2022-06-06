@@ -51,7 +51,7 @@ public class MyDatabase extends SQLiteOpenHelper {
                 + KEY_GROUP + " TEXT" + ")";
         db.execSQL(CREATE_CONTACTS_TABLE);
 
-        String CREATE_SOA_USER_TABLE = "CREATE TABLE " + TABLE_USERS  + "("
+        String CREATE_SOA_USER_TABLE = "CREATE TABLE " + TABLE_USERS + "("
                 + KEY_ID + " INTEGER PRIMARY KEY,"
                 + KEY_USERNAME + " TEXT, "
                 + KEY_PASSWORD + " TEXT,"
@@ -84,7 +84,7 @@ public class MyDatabase extends SQLiteOpenHelper {
         db.close(); // Closing database connection
     }
 
-    public void addSoaUser(SOARegisterRequest contact, String secret){
+    public void addSoaUser(SOARegisterRequest contact, String secret) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -99,7 +99,7 @@ public class MyDatabase extends SQLiteOpenHelper {
     }
 
     public SOAUser getSoaUser(String username) {
-        String selectQuery = "SELECT * FROM " + TABLE_USERS + " WHERE "+ KEY_USERNAME + " = '"+ username + "'";
+        String selectQuery = "SELECT * FROM " + TABLE_USERS + " WHERE " + KEY_USERNAME + " = '" + username + "'";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -107,10 +107,10 @@ public class MyDatabase extends SQLiteOpenHelper {
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
 
-                // contact.setID(Integer.parseInt(cursor.getString(0)));
-                user.userName = cursor.getString(1);
-                user.password = cursor.getString(2);
-                user.otpSecret = cursor.getString(3);
+            // contact.setID(Integer.parseInt(cursor.getString(0)));
+            user.userName = cursor.getString(1);
+            user.password = cursor.getString(2);
+            user.otpSecret = cursor.getString(3);
         }
         // return contact list
         return user;

@@ -27,8 +27,8 @@ public class SignupView extends DaggerAppCompatActivity implements ISignup.View 
     private EditText name;
     private EditText lastName;
     private EditText password;
-    private EditText dni;
-    private EditText commission;
+    private EditText identificationNumber;
+    private EditText committee;
     private EditText email;
     private EditText group;
     private EditText userName;
@@ -46,15 +46,14 @@ public class SignupView extends DaggerAppCompatActivity implements ISignup.View 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-
-        name = (EditText)findViewById(R.id.NameTxt);
-        lastName = (EditText)findViewById(R.id.LastNameTxt);
-        email = (EditText)findViewById(R.id.EmailTxt);
-        dni = (EditText)findViewById(R.id.DniTxt);
-        commission = (EditText)findViewById(R.id.ComissionTxt);
-        group = (EditText)findViewById(R.id.GroupTxt);
-        password = (EditText)findViewById(R.id.PasswordSignupTxt);
-        userName = (EditText)findViewById(R.id.userNameSignupTxt);
+        name = (EditText) findViewById(R.id.NameEditTxt);
+        lastName = (EditText) findViewById(R.id.LastNameEditTxt);
+        identificationNumber = (EditText) findViewById(R.id.IdentificationNumberEditTxt);
+        committee = (EditText) findViewById(R.id.CommitteeEditTxt);
+        group = (EditText) findViewById(R.id.GroupEditTxt);
+        email = (EditText) findViewById(R.id.EmailEditTxt);
+        userName = (EditText) findViewById(R.id.userEditTxt);
+        password = (EditText) findViewById(R.id.PasswordEditTxt);
 
         presenter = new SignupPresenter(this, soaApi, database);
     }
@@ -69,31 +68,31 @@ public class SignupView extends DaggerAppCompatActivity implements ISignup.View 
         name.setVisibility(View.INVISIBLE);
         lastName.setVisibility(View.INVISIBLE);
         email.setVisibility(View.INVISIBLE);
-        dni.setVisibility(View.INVISIBLE);
-        commission.setVisibility(View.INVISIBLE);
+        identificationNumber.setVisibility(View.INVISIBLE);
+        committee.setVisibility(View.INVISIBLE);
         group.setVisibility(View.INVISIBLE);
         password.setVisibility(View.INVISIBLE);
         userName.setVisibility(View.INVISIBLE);
-        TextView nameLabel = (TextView) findViewById(R.id.labelName);
+        TextView nameLabel = (TextView) findViewById(R.id.NameTxt);
         nameLabel.setVisibility(View.INVISIBLE);
-        TextView lastNameLabel = (TextView) findViewById(R.id.labelApellido);
+        TextView lastNameLabel = (TextView) findViewById(R.id.LastNameTxt);
         lastNameLabel.setVisibility(View.INVISIBLE);
-        TextView emailLabel = (TextView) findViewById(R.id.labelEmail);
+        TextView emailLabel = (TextView) findViewById(R.id.EmailTxt);
         emailLabel.setVisibility(View.INVISIBLE);
-        TextView dniLabel = (TextView) findViewById(R.id.labelDni);
+        TextView dniLabel = (TextView) findViewById(R.id.IdentificationNumberTxt);
         dniLabel.setVisibility(View.INVISIBLE);
-        TextView comissionLabel = (TextView) findViewById(R.id.labelComission);
+        TextView comissionLabel = (TextView) findViewById(R.id.CommitteeTxt);
         comissionLabel.setVisibility(View.INVISIBLE);
-        TextView groupLabel = (TextView) findViewById(R.id.labelGroup);
+        TextView groupLabel = (TextView) findViewById(R.id.GroupTxt);
         groupLabel.setVisibility(View.INVISIBLE);
-        TextView passwordLabel = (TextView) findViewById(R.id.labelPassword);
+        TextView passwordLabel = (TextView) findViewById(R.id.PasswordTxt);
         passwordLabel.setVisibility(View.INVISIBLE);
-        TextView usernameLabel = (TextView) findViewById(R.id.labelUsername);
+        TextView usernameLabel = (TextView) findViewById(R.id.userTxt);
         usernameLabel.setVisibility(View.INVISIBLE);
         TextView secretLabel = (TextView) findViewById(R.id.labelSecret);
         secretLabel.setVisibility(View.VISIBLE);
         secretLabel.setText("Su clave para google authenticator es: \n" + secret + "\nguardelo y use google authenticator para ingresar a la app");
-        Button btnRegistrarse = (Button) findViewById(R.id.btnRegistrarse);
+        Button btnRegistrarse = (Button) findViewById(R.id.RegisterBtn);
         btnRegistrarse.setVisibility(View.INVISIBLE);
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText("label", secret);
@@ -107,15 +106,15 @@ public class SignupView extends DaggerAppCompatActivity implements ISignup.View 
     }
 
     @Override
-    public void register(View view){
+    public void register(View view) {
         SOARegisterRequest SOARegisterRequest = new SOARegisterRequest(
                 "TEST",
                 name.getText().toString(),
                 lastName.getText().toString(),
                 email.getText().toString(),
                 password.getText().toString(),
-                Long.parseLong(dni.getText().toString()),
-                Long.parseLong(commission.getText().toString()),
+                Long.parseLong(identificationNumber.getText().toString()),
+                Long.parseLong(committee.getText().toString()),
                 Long.parseLong(group.getText().toString())
         );
         presenter.registerUser(SOARegisterRequest);

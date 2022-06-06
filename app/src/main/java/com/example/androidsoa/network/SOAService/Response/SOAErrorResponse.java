@@ -2,7 +2,7 @@ package com.example.androidsoa.network.SOAService.Response;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ErrorResponse {
+public class SOAErrorResponse {
     @SerializedName("success")
     private Boolean success;
 
@@ -12,7 +12,10 @@ public class ErrorResponse {
     @SerializedName("msg")
     private String msg;
 
-    public ErrorResponse(Boolean success, String env, String msg) {
+    public SOAErrorResponse() {
+    }
+
+    public SOAErrorResponse(Boolean success, String env, String msg) {
         this.success = success;
         this.env = env;
         this.msg = msg;
