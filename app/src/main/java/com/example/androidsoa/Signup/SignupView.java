@@ -28,7 +28,7 @@ public class SignupView extends DaggerAppCompatActivity implements ISignup.View 
     private EditText lastName;
     private EditText password;
     private EditText identificationNumber;
-    private EditText committee;
+    private EditText commission;
     private EditText email;
     private EditText group;
     private EditText userName;
@@ -39,7 +39,6 @@ public class SignupView extends DaggerAppCompatActivity implements ISignup.View 
     @Inject
     SOAApi soaApi;
 
-    private static final String TAG = "SignupView";
     private ISignup.Presenter presenter;
 
     @Override
@@ -49,7 +48,7 @@ public class SignupView extends DaggerAppCompatActivity implements ISignup.View 
         name = (EditText) findViewById(R.id.NameEditTxt);
         lastName = (EditText) findViewById(R.id.LastNameEditTxt);
         identificationNumber = (EditText) findViewById(R.id.IdentificationNumberEditTxt);
-        committee = (EditText) findViewById(R.id.CommitteeEditTxt);
+        commission = (EditText) findViewById(R.id.CommissionEditTxt);
         group = (EditText) findViewById(R.id.GroupEditTxt);
         email = (EditText) findViewById(R.id.EmailEditTxt);
         userName = (EditText) findViewById(R.id.userEditTxt);
@@ -108,15 +107,16 @@ public class SignupView extends DaggerAppCompatActivity implements ISignup.View 
     @Override
     public void register(View view) {
         SOARegisterRequest SOARegisterRequest = new SOARegisterRequest(
-                "TEST",
+                "PROD",
                 name.getText().toString(),
                 lastName.getText().toString(),
                 email.getText().toString(),
                 password.getText().toString(),
                 Long.parseLong(identificationNumber.getText().toString()),
-                Long.parseLong(committee.getText().toString()),
+                Long.parseLong(commission.getText().toString()),
                 Long.parseLong(group.getText().toString())
         );
-        presenter.registerUser(SOARegisterRequest);
+
+        presenter.registerUser(SOARegisterRequest, userName.getText().toString());
     }
 }

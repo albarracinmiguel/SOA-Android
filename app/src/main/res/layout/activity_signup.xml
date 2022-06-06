@@ -92,17 +92,17 @@
         app:layout_constraintTop_toBottomOf="@+id/LastNameEditTxt" />
 
     <TextView
-        android:id="@+id/CommitteeTxt"
+        android:id="@+id/CommissionTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Comisión"
-        app:layout_constraintBaseline_toBaselineOf="@+id/CommitteeEditTxt"
-        app:layout_constraintEnd_toStartOf="@+id/CommitteeEditTxt"
+        app:layout_constraintBaseline_toBaselineOf="@+id/CommissionEditTxt"
+        app:layout_constraintEnd_toStartOf="@+id/CommissionEditTxt"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/CommitteeEditTxt"
+        android:id="@+id/CommissionEditTxt"
         android:layout_width="250dp"
         android:layout_height="40dp"
         android:layout_marginTop="10dp"
@@ -111,7 +111,7 @@
         android:inputType="number|textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/CommitteeTxt"
+        app:layout_constraintStart_toEndOf="@+id/CommissionTxt"
         app:layout_constraintTop_toBottomOf="@+id/IdentificationNumberEditTxt" />
 
     <TextView
@@ -135,7 +135,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/GroupTxt"
-        app:layout_constraintTop_toBottomOf="@+id/CommitteeEditTxt" />
+        app:layout_constraintTop_toBottomOf="@+id/CommissionEditTxt" />
 
     <TextView
         android:id="@+id/EmailTxt"

@@ -2,6 +2,7 @@ package com.example.androidsoa.Signup;
 
 import android.util.Log;
 
+import com.example.androidsoa.Dto.UserDto;
 import com.example.androidsoa.network.SOAService.SOAApi;
 import com.example.androidsoa.network.SOAService.Request.SOARegisterRequest;
 import com.example.androidsoa.network.SOAService.Response.SOARegisterResponse;
@@ -35,15 +36,19 @@ public class SignupPresenter implements ISignup.Presenter {
     }
 
     @Override
-    public void registerUser(SOARegisterRequest soaRegisterRequest) {
-        System.out.println("HOLAAAAAA");
-        model.addContact(soaRegisterRequest);
+    public void registerUser(SOARegisterRequest soaRegisterRequest, String userName) {
         Call<SOARegisterResponse> call = soaApi.register(soaRegisterRequest);
         call.enqueue(new Callback<SOARegisterResponse>() {
             @Override
             public void onResponse(Call<SOARegisterResponse> call, Response<SOARegisterResponse> response) {
                 if (response.isSuccessful()) {
                     SOARegisterResponse soaRegisterResponse = response.body();
+
+                    System.out.println(soaRegisterResponse.getSuccess());
+                    System.out.println(soaRegisterResponse.getToken());
+                    System.out.println(soaRegisterResponse.getTokenRefresh());
+                    System.out.println(soaRegisterResponse.getEnv());
+
                     view.signupSuccess(secret);
                 } else {
                     ResponseBody errorResponse = response.errorBody();

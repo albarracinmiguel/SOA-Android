@@ -25,7 +25,7 @@ public class ApplicationModule {
     @Singleton
     @Provides
     static Retrofit provideRetrofitInstance() {
-        return new Retrofit.Builder().baseUrl(Constants.BASE_URL)
+        return new Retrofit.Builder().baseUrl(Constants.SOA_API)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
