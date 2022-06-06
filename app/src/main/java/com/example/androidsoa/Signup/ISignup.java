@@ -1,6 +1,6 @@
 package com.example.androidsoa.Signup;
 
-import com.example.androidsoa.network.SOAService.SOARequest;
+import com.example.androidsoa.network.SOAService.Request.SOARegisterRequest;
 
 import java.util.List;
 
@@ -12,13 +12,13 @@ public interface ISignup {
         void register(android.view.View view);
     }
     interface Presenter{
-        void registerUser(SOARequest soaRequest);
+        void registerUser(SOARegisterRequest soaRequest);
         void getList();
     }
 
     interface Model{
-        void addUser(SOARequest contact, String secret);
-        void addContact(SOARequest contact);
-        List<SOARequest> getAllContacts();
+        void addUser(SOARegisterRequest contact, String secret);
+        void addContact(SOARegisterRequest contact);
+        List<SOARegisterRequest> getAllContacts();
     }
 }

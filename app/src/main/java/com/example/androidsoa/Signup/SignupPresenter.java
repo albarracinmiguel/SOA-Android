@@ -3,23 +3,20 @@ package com.example.androidsoa.Signup;
 import android.util.Log;
 
 import com.example.androidsoa.network.SOAService.SOAApi;
-import com.example.androidsoa.network.SOAService.SOARequest;
-import com.example.androidsoa.network.SOAService.SOAResponse;
+import com.example.androidsoa.network.SOAService.Request.SOARegisterRequest;
+import com.example.androidsoa.network.SOAService.Response.SOARegisterResponse;
 import com.example.androidsoa.data.MyDatabase;
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.codec.binary.Base32;
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.codec.binary.Hex;
 
 import java.security.SecureRandom;
 import java.util.List;
-
 import javax.inject.Inject;
-
 import de.taimos.totp.TOTP;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SignupPresenter implements  ISignup.Presenter {
     private ISignup.View view;
@@ -35,15 +32,12 @@ public class SignupPresenter implements  ISignup.Presenter {
     }
 
     @Override
-    public void registerUser(SOARequest soaRequest) {
-
-        String secret = this.generateSecretKey();
-        model.addContact(soaRequest);
-        model.addUser(soaRequest, secret);
-        Call<SOAResponse> call = soaApi.register(soaRequest);
-        call.enqueue(new Callback<SOAResponse>() {
+    public void registerUser(SOARegisterRequest soaRegisterRequest) {
+        model.addContact(soaRegisterRequest);
+        Call<SOARegisterResponse> call = soaApi.register(soaRegisterRequest);
+        call.enqueue(new Callback<SOARegisterResponse>() {
             @Override
-            public void onResponse(Call<SOAResponse> call, Response<SOAResponse> response) {
+            public void onResponse(Call<SOARegisterResponse> call, Response<SOARegisterResponse> response) {
                 if (response.isSuccessful()){
                     view.signupSuccess(secret);
                 }
@@ -54,7 +48,7 @@ public class SignupPresenter implements  ISignup.Presenter {
             }
 
             @Override
-            public void onFailure(Call<SOAResponse> call, Throwable t) {
+            public void onFailure(Call<SOARegisterResponse> call, Throwable t) {
                 view.signupFail();
                 Log.e(TAG, t.getMessage());
             }
@@ -65,9 +59,9 @@ public class SignupPresenter implements  ISignup.Presenter {
 
     @Override
     public void getList() {
-        List<SOARequest> aux = model
+        List<SOARegisterRequest> aux = model
                 .getAllContacts();
-        for (SOARequest contact: aux) {
+        for (SOARegisterRequest contact: aux) {
             Log.i(TAG, contact.getName());
         }
 

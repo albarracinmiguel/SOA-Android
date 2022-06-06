@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.androidsoa.network.SOAService.SOARequest;
+import com.example.androidsoa.network.SOAService.Request.SOARegisterRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +69,7 @@ public class MyDatabase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addContact(SOARequest contact) {
+    public void addContact(SOARegisterRequest contact) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -84,7 +84,7 @@ public class MyDatabase extends SQLiteOpenHelper {
         db.close(); // Closing database connection
     }
 
-    public void addSoaUser(SOARequest contact, String secret){
+    public void addSoaUser(SOARegisterRequest contact, String secret){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -116,8 +116,8 @@ public class MyDatabase extends SQLiteOpenHelper {
         return user;
     }
 
-    public List<SOARequest> getAllContacts() {
-        List<SOARequest> contactList = new ArrayList<SOARequest>();
+    public List<SOARegisterRequest> getAllContacts() {
+        List<SOARegisterRequest> contactList = new ArrayList<SOARegisterRequest>();
         // Select All Query
         String selectQuery = "SELECT  * FROM " + TABLE_CONTACTS;
 
@@ -127,7 +127,7 @@ public class MyDatabase extends SQLiteOpenHelper {
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                SOARequest contact = new SOARequest();
+                SOARegisterRequest contact = new SOARegisterRequest();
                 // contact.setID(Integer.parseInt(cursor.getString(0)));
                 contact.setEnv("TEST");
                 contact.setName(cursor.getString(1));

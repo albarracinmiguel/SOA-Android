@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.androidsoa.network.SOAService.SOAApi;
-import com.example.androidsoa.network.SOAService.SOARequest;
+import com.example.androidsoa.network.SOAService.Request.SOARegisterRequest;
 
 import com.example.androidsoa.R;
 import com.example.androidsoa.Login.LoginView;
@@ -108,9 +108,16 @@ public class SignupView extends DaggerAppCompatActivity implements ISignup.View 
 
     @Override
     public void register(View view){
-        SOARequest soaRequest = new SOARequest(name.getText().toString(), lastName.getText().toString(),
-                email.getText().toString(), password.getText().toString(), dni.getText().toString(), commission.getText().toString(),
-                group.getText().toString(), userName.getText().toString());
-        presenter.registerUser(soaRequest);
+        SOARegisterRequest SOARegisterRequest = new SOARegisterRequest(
+                "TEST",
+                name.getText().toString(),
+                lastName.getText().toString(),
+                email.getText().toString(),
+                password.getText().toString(),
+                Long.parseLong(dni.getText().toString()),
+                Long.parseLong(commission.getText().toString()),
+                Long.parseLong(group.getText().toString())
+        );
+        presenter.registerUser(SOARegisterRequest);
     }
 }
