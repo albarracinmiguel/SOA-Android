@@ -6,11 +6,15 @@ import com.example.androidsoa.network.SOAService.SOAApi;
 import com.example.androidsoa.network.SOAService.SOARequest;
 import com.example.androidsoa.network.SOAService.SOAResponse;
 import com.example.androidsoa.data.MyDatabase;
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.codec.binary.Base32;
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.codec.binary.Hex;
 
+import java.security.SecureRandom;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import de.taimos.totp.TOTP;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,13 +36,16 @@ public class SignupPresenter implements  ISignup.Presenter {
 
     @Override
     public void registerUser(SOARequest soaRequest) {
+
+        String secret = this.generateSecretKey();
         model.addContact(soaRequest);
+        model.addUser(soaRequest, secret);
         Call<SOAResponse> call = soaApi.register(soaRequest);
         call.enqueue(new Callback<SOAResponse>() {
             @Override
             public void onResponse(Call<SOAResponse> call, Response<SOAResponse> response) {
                 if (response.isSuccessful()){
-                    view.signupSuccess();
+                    view.signupSuccess(secret);
                 }
                 else {
                     view.signupFail();
@@ -52,6 +59,8 @@ public class SignupPresenter implements  ISignup.Presenter {
                 Log.e(TAG, t.getMessage());
             }
         });
+
+        view.signupSuccess(secret);
     }
 
     @Override
@@ -62,6 +71,14 @@ public class SignupPresenter implements  ISignup.Presenter {
             Log.i(TAG, contact.getName());
         }
 
+    }
+
+    public static String generateSecretKey() {
+        SecureRandom random = new SecureRandom();
+        byte[] bytes = new byte[20];
+        random.nextBytes(bytes);
+        Base32 base32 = new Base32();
+        return base32.encodeToString(bytes);
     }
 
 }

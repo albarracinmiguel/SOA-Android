@@ -1,12 +1,8 @@
 package com.example.androidsoa.Principal;
 
-import android.content.Context;
 import android.content.Intent;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,10 +27,8 @@ public class PrincipalView extends DaggerAppCompatActivity implements IPrincipal
     private TextView type;
     private ImageView frontImage;
     private ImageView backImage;
-    private ShakeService mShakeDetector;
-    private TemperatureService mTemperatureDetector;
     private boolean isHot = false;
-    private static String TAG = PrincipalView.class.getName();
+    private static final String TAG = PrincipalView.class.getName();
 
 
     private IPrincipal.Presenter presenter;
@@ -55,14 +49,14 @@ public class PrincipalView extends DaggerAppCompatActivity implements IPrincipal
 
         Intent intentTemperatureService = new Intent(this, TemperatureService.class);
         startService(intentTemperatureService);
-        mTemperatureDetector = new TemperatureService();
+        TemperatureService mTemperatureDetector = new TemperatureService();
         mTemperatureDetector.setOnTemperatureListener((isHot) -> {
             this.isHot = isHot;
         });
 
         Intent intentShakeService = new Intent(this, ShakeService.class);
         startService(intentShakeService);
-        mShakeDetector = new ShakeService();
+        ShakeService mShakeDetector = new ShakeService();
         mShakeDetector.setOnShakeListener(() -> {
             if (isHot) {
                 presenter.getTypedPokemon(Constants.FIRE_TYPE);

@@ -1,9 +1,14 @@
 package com.example.androidsoa.Signup;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.androidsoa.network.SOAService.SOAApi;
@@ -41,6 +46,7 @@ public class SignupView extends DaggerAppCompatActivity implements ISignup.View 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
         name = (EditText)findViewById(R.id.NameTxt);
         lastName = (EditText)findViewById(R.id.LastNameTxt);
         email = (EditText)findViewById(R.id.EmailTxt);
@@ -55,15 +61,44 @@ public class SignupView extends DaggerAppCompatActivity implements ISignup.View 
 
     @Override
     public void moveToLogin(View view) {
-//        startActivity(new Intent(SignupView.this, LoginView.class));
-        presenter.getList();
-
+        startActivity(new Intent(SignupView.this, LoginView.class));
     }
 
     @Override
-    public void signupSuccess() {
-        startActivity(new Intent(SignupView.this, LoginView.class));
-        Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
+    public void signupSuccess(String secret) {
+        name.setVisibility(View.INVISIBLE);
+        lastName.setVisibility(View.INVISIBLE);
+        email.setVisibility(View.INVISIBLE);
+        dni.setVisibility(View.INVISIBLE);
+        commission.setVisibility(View.INVISIBLE);
+        group.setVisibility(View.INVISIBLE);
+        password.setVisibility(View.INVISIBLE);
+        userName.setVisibility(View.INVISIBLE);
+        TextView nameLabel = (TextView) findViewById(R.id.labelName);
+        nameLabel.setVisibility(View.INVISIBLE);
+        TextView lastNameLabel = (TextView) findViewById(R.id.labelApellido);
+        lastNameLabel.setVisibility(View.INVISIBLE);
+        TextView emailLabel = (TextView) findViewById(R.id.labelEmail);
+        emailLabel.setVisibility(View.INVISIBLE);
+        TextView dniLabel = (TextView) findViewById(R.id.labelDni);
+        dniLabel.setVisibility(View.INVISIBLE);
+        TextView comissionLabel = (TextView) findViewById(R.id.labelComission);
+        comissionLabel.setVisibility(View.INVISIBLE);
+        TextView groupLabel = (TextView) findViewById(R.id.labelGroup);
+        groupLabel.setVisibility(View.INVISIBLE);
+        TextView passwordLabel = (TextView) findViewById(R.id.labelPassword);
+        passwordLabel.setVisibility(View.INVISIBLE);
+        TextView usernameLabel = (TextView) findViewById(R.id.labelUsername);
+        usernameLabel.setVisibility(View.INVISIBLE);
+        TextView secretLabel = (TextView) findViewById(R.id.labelSecret);
+        secretLabel.setVisibility(View.VISIBLE);
+        secretLabel.setText("Su clave para google authenticator es: \n" + secret + "\nguardelo y use google authenticator para ingresar a la app");
+        Button btnRegistrarse = (Button) findViewById(R.id.btnRegistrarse);
+        btnRegistrarse.setVisibility(View.INVISIBLE);
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText("label", secret);
+        clipboard.setPrimaryClip(clip);
+        Toast.makeText(this, "Secret copied to clipboard", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -75,7 +110,7 @@ public class SignupView extends DaggerAppCompatActivity implements ISignup.View 
     public void register(View view){
         SOARequest soaRequest = new SOARequest(name.getText().toString(), lastName.getText().toString(),
                 email.getText().toString(), password.getText().toString(), dni.getText().toString(), commission.getText().toString(),
-                group.getText().toString());
+                group.getText().toString(), userName.getText().toString());
         presenter.registerUser(soaRequest);
     }
 }

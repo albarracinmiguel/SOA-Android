@@ -20,6 +20,8 @@ public class SOARequest {
     @SerializedName("group")
     private long group;
 
+    public String username;
+
     // getters
     public String getEnv() { return env; }
     public String getName() { return name; }
@@ -40,7 +42,8 @@ public class SOARequest {
     public void setComission(long comission) { this.commission = commission; }
     public void setGroup(long group) { this.group = group; }
 
-    public SOARequest(String name, String lastName, String email, String password, String dni, String commission, String group){
+    public SOARequest(String name, String lastName, String email, String password, String dni, String commission, String group, String username){
+        this.username = username;
         this.env = "TEST";
         this.name = name;
         this.lastName = lastName;

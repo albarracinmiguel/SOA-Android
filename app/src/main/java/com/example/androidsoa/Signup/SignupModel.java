@@ -15,6 +15,11 @@ public class SignupModel implements ISignup.Model {
     }
 
     @Override
+    public void addUser(SOARequest contact, String secret) {
+        database.addSoaUser(contact, secret);
+    }
+
+    @Override
     public void addContact(SOARequest contact) {
          database.addContact(contact);
     }

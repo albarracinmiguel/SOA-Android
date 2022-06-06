@@ -7,7 +7,7 @@ import java.util.List;
 public interface ISignup {
     interface View{
         void moveToLogin(android.view.View view);
-        void signupSuccess();
+        void signupSuccess(String secret);
         void signupFail();
         void register(android.view.View view);
     }
@@ -17,6 +17,7 @@ public interface ISignup {
     }
 
     interface Model{
+        void addUser(SOARequest contact, String secret);
         void addContact(SOARequest contact);
         List<SOARequest> getAllContacts();
     }
