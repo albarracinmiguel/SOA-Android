@@ -8,6 +8,8 @@ import com.example.androidsoa.network.SOAService.Response.SOARegisterResponse;
 import com.example.androidsoa.network.SOAService.SOAApi;
 import com.example.androidsoa.util.ErrorConstants;
 
+import java.io.IOException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -75,8 +77,14 @@ public class LoginPresenter implements ILogin.Presenter {
 
             @Override
             public void onFailure(Call<SOARegisterResponse> call, Throwable t) {
-                view.showError(ErrorConstants.INVALID_LOGIN);
-                Log.e(TAG, t.getMessage());
+                // logging internet issue
+                if (t instanceof IOException) {
+                    Log.e(TAG, "this is an actual network failure :( inform the user and possibly retry");
+                }
+                else {
+                    view.showError(ErrorConstants.INVALID_LOGIN);
+                    Log.e(TAG, t.getMessage());
+                }
             }
         });
     }

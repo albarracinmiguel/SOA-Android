@@ -8,6 +8,8 @@ import com.example.androidsoa.network.PokemonService.PokemonResponse;
 import com.example.androidsoa.network.PokemonService.TypeApiResponse;
 import com.example.androidsoa.util.Constants;
 
+import java.io.IOException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,7 +44,10 @@ public class PrincipalPresenter implements IPrincipal.Presenter {
 
             @Override
             public void onFailure(Call<PokemonResponse> call, Throwable t) {
-                Log.e(TAG, t.getMessage());
+                if (t instanceof IOException)
+                    Log.e(TAG, "this is an actual network failure :( inform the user and possibly retry");
+                else
+                    Log.e(TAG, t.getMessage());
             }
         });
     }
@@ -72,7 +77,12 @@ public class PrincipalPresenter implements IPrincipal.Presenter {
 
                         @Override
                         public void onFailure(Call<PokemonResponse> call, Throwable t) {
-                            Log.e(TAG, t.getMessage());
+                            // logging internet issue
+                            if (t instanceof IOException) {
+                                Log.e(TAG, "this is an actual network failure :( inform the user and possibly retry");
+                            }
+                            else
+                                Log.e(TAG, t.getMessage());
                         }
                     });
                 } else {
@@ -82,7 +92,11 @@ public class PrincipalPresenter implements IPrincipal.Presenter {
 
             @Override
             public void onFailure(Call<TypeApiResponse> call, Throwable t) {
-                Log.e(TAG, t.getMessage());
+                if (t instanceof IOException) {
+                    Log.e(TAG, "this is an actual network failure :( inform the user and possibly retry");
+                }
+                else
+                    Log.e(TAG, t.getMessage());
             }
         });
     }

@@ -8,6 +8,7 @@ import com.example.androidsoa.network.SOAService.Response.SOARegisterResponse;
 import com.example.androidsoa.network.SOAService.SOAApi;
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.codec.binary.Base32;
 
+import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.List;
 
@@ -47,8 +48,14 @@ public class SignupPresenter implements ISignup.Presenter {
 
             @Override
             public void onFailure(Call<SOARegisterResponse> call, Throwable t) {
-                view.signupFail();
-                Log.e(TAG, t.getMessage());
+                // logging internet issue
+                if (t instanceof IOException) {
+                    Log.e(TAG, "this is an actual network failure :( inform the user and possibly retry");
+                }
+                else {
+                    view.signupFail();
+                    Log.e(TAG, t.getMessage());
+                }
             }
         });
 
