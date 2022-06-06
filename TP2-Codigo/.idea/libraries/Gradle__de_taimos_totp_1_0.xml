@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: de.taimos:totp:1.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/de.taimos/totp/1.0/ca7d41781c7a6aa634c3f1be47d2fe0bdfd5d14d/totp-1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/de.taimos/totp/1.0/9c8734d3f2b5dffc98c3b141e49da1a9abb5824f/totp-1.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/de.taimos/totp/1.0/3780fa870f50b577018ad6dc007d9199c54b3a32/totp-1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
