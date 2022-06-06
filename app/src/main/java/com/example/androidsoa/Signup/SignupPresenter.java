@@ -47,6 +47,7 @@ public class SignupPresenter implements ISignup.Presenter {
                 if (response.isSuccessful()) {
                     SOARegisterResponse soaRegisterResponse = response.body();
 
+                    System.out.println("SUCCESS");
                     System.out.println(soaRegisterResponse.getSuccess());
                     System.out.println(soaRegisterResponse.getToken());
                     System.out.println(soaRegisterResponse.getTokenRefresh());
@@ -54,9 +55,8 @@ public class SignupPresenter implements ISignup.Presenter {
 
                     view.signupSuccess(secret);
                 } else {
-                    ResponseBody errorResponse = response.errorBody();
+                    System.out.println("ERROR");
                     System.out.println(response.message());
-                    System.out.println(errorResponse.toString());
                     Log.e(TAG, response.message());
                     view.signupFail();
                 }
@@ -64,6 +64,7 @@ public class SignupPresenter implements ISignup.Presenter {
 
             @Override
             public void onFailure(Call<SOARegisterResponse> call, Throwable t) {
+                System.out.println("FAILURE");
                 view.signupFail();
                 Log.e(TAG, t.getMessage());
             }
