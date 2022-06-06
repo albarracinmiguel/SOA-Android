@@ -1,20 +1,28 @@
 package com.example.androidsoa.Login;
 
-import com.example.androidsoa.data.MyDatabase;
-import com.example.androidsoa.util.ErrorConstants;
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.codec.binary.Base32;
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.codec.binary.Hex;
+import android.util.Log;
 
-import de.taimos.totp.TOTP;
+import com.example.androidsoa.data.MyDatabase;
+import com.example.androidsoa.network.SOAService.Request.SOALoginRequest;
+import com.example.androidsoa.network.SOAService.Response.SOARegisterResponse;
+import com.example.androidsoa.network.SOAService.SOAApi;
+import com.example.androidsoa.util.ErrorConstants;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginPresenter implements ILogin.Presenter {
 
     private ILogin.View view;
     private ILogin.Model model;
+    private final SOAApi soaApi;
+    private static String TAG = LoginPresenter.class.getName();
 
-    public LoginPresenter(ILogin.View view, MyDatabase database) {
+    public LoginPresenter(ILogin.View view, MyDatabase database, SOAApi soaApi) {
         this.view = view;
         model = new LoginModel(this, database);
+        this.soaApi = soaApi;
     }
 
     @Override
@@ -42,9 +50,32 @@ public class LoginPresenter implements ILogin.Presenter {
 
     @Override
     public void checkValidOTP(String otp) {
-        if( model.checkOtp(otp))
+        if (model.checkOtp(otp))
             view.moveToPrincipal();
         else
             view.showError(ErrorConstants.INVALID_LOGIN);
+    }
+
+    public void login(SOALoginRequest soaLoginRequest) {
+        Call<SOARegisterResponse> call = soaApi.login(soaLoginRequest);
+        call.enqueue(new Callback<SOARegisterResponse>() {
+            @Override
+            public void onResponse(Call<SOARegisterResponse> call, Response<SOARegisterResponse> response) {
+                if (response.isSuccessful()) {
+                    SOARegisterResponse soaRegisterResponse = response.body();
+
+                    view.moveToPrincipal();
+                } else {
+                    Log.e(TAG, response.message());
+                    view.showError(ErrorConstants.INVALID_LOGIN);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SOARegisterResponse> call, Throwable t) {
+                view.showError(ErrorConstants.INVALID_LOGIN);
+                Log.e(TAG, t.getMessage());
+            }
+        });
     }
 }

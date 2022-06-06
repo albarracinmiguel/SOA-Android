@@ -1,7 +1,5 @@
 package com.example.androidsoa.Login;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,9 +9,11 @@ import android.widget.TextView;
 
 import com.example.androidsoa.Principal.PrincipalView;
 import com.example.androidsoa.R;
-import com.example.androidsoa.Signup.ISignup;
 import com.example.androidsoa.Signup.SignupView;
 import com.example.androidsoa.data.MyDatabase;
+import com.example.androidsoa.network.SOAService.Request.SOALoginRequest;
+import com.example.androidsoa.network.SOAService.Request.SOARegisterRequest;
+import com.example.androidsoa.network.SOAService.SOAApi;
 
 import javax.inject.Inject;
 
@@ -29,10 +29,12 @@ public class LoginView extends DaggerAppCompatActivity implements ILogin.View{
     private Button signupBtn;
     private Button loginSecond;
     private EditText otpText;
+
+    @Inject
+    SOAApi soaApi;
+
     @Inject
     MyDatabase database;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +47,19 @@ public class LoginView extends DaggerAppCompatActivity implements ILogin.View{
         loginSecond = (Button)findViewById(R.id.CheckOTPBtn);
         signupBtn = (Button)findViewById(R.id.SignupBtn);
         error = (TextView) findViewById(R.id.ErrorTxt);
-        presenter = new LoginPresenter(this, database);
+
+        presenter = new LoginPresenter(this, database, soaApi);
     }
 
     public void login(View view){
         error.setVisibility(View.INVISIBLE);
+        SOALoginRequest soaLoginRequest = new SOALoginRequest(
+                username.toString(),
+                password.toString()
+        );
+
         presenter.checkUser(username.getText().toString(), password.getText().toString());
+        presenter.login(soaLoginRequest);
     }
 
     @Override

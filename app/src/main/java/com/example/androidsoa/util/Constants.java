@@ -8,6 +8,9 @@ public class Constants {
     public static final String FIRE_TYPE = "fire";
     public static final String ICE_TYPE = "ice";
 
+    public static final String ENV_TEST = "TEST";
+    public static final String ENV_PROD = "PROD";
+
     public static final int MIN_POKEMON_ID = 1;
     public static final int MAX_POKEMON_ID = 151;
 }

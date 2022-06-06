@@ -17,6 +17,7 @@ import com.example.androidsoa.network.SOAService.Request.SOARegisterRequest;
 import com.example.androidsoa.R;
 import com.example.androidsoa.Login.LoginView;
 import com.example.androidsoa.data.MyDatabase;
+import com.example.androidsoa.util.Constants;
 
 import javax.inject.Inject;
 
@@ -91,8 +92,8 @@ public class SignupView extends DaggerAppCompatActivity implements ISignup.View 
         TextView secretLabel = (TextView) findViewById(R.id.labelSecret);
         secretLabel.setVisibility(View.VISIBLE);
         secretLabel.setText("Su clave para google authenticator es: \n" + secret + "\nguardelo y use google authenticator para ingresar a la app");
-        Button btnRegistrarse = (Button) findViewById(R.id.RegisterBtn);
-        btnRegistrarse.setVisibility(View.INVISIBLE);
+        Button registerBtn = (Button) findViewById(R.id.RegisterBtn);
+        registerBtn.setVisibility(View.INVISIBLE);
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText("label", secret);
         clipboard.setPrimaryClip(clip);
@@ -107,7 +108,7 @@ public class SignupView extends DaggerAppCompatActivity implements ISignup.View 
     @Override
     public void register(View view) {
         SOARegisterRequest SOARegisterRequest = new SOARegisterRequest(
-                "PROD",
+                Constants.ENV_PROD,
                 name.getText().toString(),
                 lastName.getText().toString(),
                 email.getText().toString(),
