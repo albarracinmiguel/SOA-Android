@@ -68,7 +68,7 @@ public class SignupView extends DaggerAppCompatActivity implements ISignup.View 
         lastName.setVisibility(View.INVISIBLE);
         email.setVisibility(View.INVISIBLE);
         identificationNumber.setVisibility(View.INVISIBLE);
-        committee.setVisibility(View.INVISIBLE);
+        commission.setVisibility(View.INVISIBLE);
         group.setVisibility(View.INVISIBLE);
         password.setVisibility(View.INVISIBLE);
         userName.setVisibility(View.INVISIBLE);
@@ -80,7 +80,7 @@ public class SignupView extends DaggerAppCompatActivity implements ISignup.View 
         emailLabel.setVisibility(View.INVISIBLE);
         TextView dniLabel = (TextView) findViewById(R.id.IdentificationNumberTxt);
         dniLabel.setVisibility(View.INVISIBLE);
-        TextView comissionLabel = (TextView) findViewById(R.id.CommitteeTxt);
+        TextView comissionLabel = (TextView) findViewById(R.id.CommissionTxt);
         comissionLabel.setVisibility(View.INVISIBLE);
         TextView groupLabel = (TextView) findViewById(R.id.GroupTxt);
         groupLabel.setVisibility(View.INVISIBLE);

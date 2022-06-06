@@ -1,8 +1,7 @@
 package com.example.androidsoa.Signup;
 
-import com.example.androidsoa.Dto.UserDto;
-import com.example.androidsoa.network.SOAService.Request.SOARegisterRequest;
 import com.example.androidsoa.data.MyDatabase;
+import com.example.androidsoa.network.SOAService.Request.SOARegisterRequest;
 
 import java.util.List;
 
@@ -16,8 +15,8 @@ public class SignupModel implements ISignup.Model {
     }
 
     @Override
-    public void addUser(SOARegisterRequest contact, String secret) {
-        database.addSoaUser(contact, secret);
+    public void addUser(SOARegisterRequest contact, String userName, String secret) {
+        database.addSoaUser(contact, userName, secret);
     }
 
     @Override

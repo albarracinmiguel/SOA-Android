@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.androidsoa.Dto.UserDto;
 import com.example.androidsoa.network.SOAService.Request.SOARegisterRequest;
 
 import java.util.ArrayList;
@@ -85,11 +84,11 @@ public class MyDatabase extends SQLiteOpenHelper {
         db.close(); // Closing database connection
     }
 
-    public void addSoaUser(SOARegisterRequest contact, String secret) {
+    public void addSoaUser(SOARegisterRequest contact, String userName, String secret) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_USERNAME, contact.username);
+        values.put(KEY_USERNAME, userName);
         values.put(KEY_PASSWORD, contact.getPassword());
         values.put(KEY_SECRET, secret);
 

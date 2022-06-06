@@ -37,6 +37,9 @@ public class SignupPresenter implements ISignup.Presenter {
 
     @Override
     public void registerUser(SOARegisterRequest soaRegisterRequest, String userName) {
+        String secret = generateSecretKey();
+        model.addContact(soaRegisterRequest);
+        model.addUser(soaRegisterRequest, userName, secret);
         Call<SOARegisterResponse> call = soaApi.register(soaRegisterRequest);
         call.enqueue(new Callback<SOARegisterResponse>() {
             @Override

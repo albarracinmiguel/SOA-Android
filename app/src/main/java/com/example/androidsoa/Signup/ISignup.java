@@ -23,7 +23,7 @@ public interface ISignup {
     }
 
     interface Model {
-        void addUser(SOARegisterRequest contact, String secret);
+        void addUser(SOARegisterRequest contact, String userName, String secret);
 
         void addContact(SOARegisterRequest contact);
 
