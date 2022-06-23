@@ -6,6 +6,7 @@ import com.example.androidsoa.data.MyDatabase;
 import com.example.androidsoa.network.SOAService.Request.SOARegisterRequest;
 import com.example.androidsoa.network.SOAService.Response.SOARegisterResponse;
 import com.example.androidsoa.network.SOAService.SOAApi;
+import com.example.androidsoa.util.ErrorConstants;
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.codec.binary.Base32;
 
 import java.io.IOException;
@@ -30,36 +31,33 @@ public class SignupPresenter implements ISignup.Presenter {
 
     @Override
     public void registerUser(SOARegisterRequest soaRegisterRequest, String userName) {
-        String secret = generateSecretKey();
-        model.addUser(soaRegisterRequest, userName, secret);
-
         Call<SOARegisterResponse> call = soaApi.register(soaRegisterRequest);
         call.enqueue(new Callback<SOARegisterResponse>() {
             @Override
             public void onResponse(Call<SOARegisterResponse> call, Response<SOARegisterResponse> response) {
                 if (response.isSuccessful()) {
+                    String secret = generateSecretKey();
+                    model.addUser(soaRegisterRequest, userName, secret);
+
                     SOARegisterResponse soaRegisterResponse = response.body();
                     view.signupSuccess(secret);
                 } else {
                     Log.e(TAG, response.message());
-                    view.signupFail();
+                    view.signupFail(ErrorConstants.REGISTER_ERROR);
                 }
             }
 
             @Override
             public void onFailure(Call<SOARegisterResponse> call, Throwable t) {
-                // logging internet issue
                 if (t instanceof IOException) {
-                    Log.e(TAG, "this is an actual network failure :( inform the user and possibly retry");
+                    view.showNetworkError(ErrorConstants.NETWORK_ERROR);
+                } else {
+                    view.signupFail(t.getMessage());
                 }
-                else {
-                    view.signupFail();
-                    Log.e(TAG, t.getMessage());
-                }
+
+                Log.e(TAG, t.getMessage());
             }
         });
-
-        view.signupSuccess(secret);
     }
 
     public static String generateSecretKey() {

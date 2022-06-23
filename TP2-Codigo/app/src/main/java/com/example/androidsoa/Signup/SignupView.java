@@ -4,6 +4,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +34,7 @@ public class SignupView extends DaggerAppCompatActivity implements ISignup.View 
     private EditText email;
     private EditText group;
     private EditText userName;
+    private TextView labelError;
 
     @Inject
     MyDatabase database;
@@ -54,6 +56,7 @@ public class SignupView extends DaggerAppCompatActivity implements ISignup.View 
         email = (EditText) findViewById(R.id.EmailEditTxt);
         userName = (EditText) findViewById(R.id.userEditTxt);
         password = (EditText) findViewById(R.id.PasswordEditTxt);
+        labelError = findViewById(R.id.labelError);
 
         presenter = new SignupPresenter(this, soaApi, database);
     }
@@ -101,8 +104,14 @@ public class SignupView extends DaggerAppCompatActivity implements ISignup.View 
     }
 
     @Override
-    public void signupFail() {
-        Toast.makeText(this, "Fail", Toast.LENGTH_SHORT).show();
+    public void signupFail(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    public void showNetworkError(String msg) {
+        this.labelError.setVisibility(View.VISIBLE);
+        this.labelError.setTextColor(ColorStateList.valueOf(0xFFFF0000));
+        this.labelError.setText(msg);
     }
 
     @Override

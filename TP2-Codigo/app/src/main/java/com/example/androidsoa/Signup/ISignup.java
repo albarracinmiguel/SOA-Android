@@ -11,7 +11,9 @@ public interface ISignup {
 
         void signupSuccess(String secret);
 
-        void signupFail();
+        void signupFail(String msg);
+
+        void showNetworkError(String msg);
 
         void register(android.view.View view);
     }
