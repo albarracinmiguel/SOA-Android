@@ -7,8 +7,8 @@ public class SOARegisterRequest {
     private String env;
     @SerializedName("name")
     private String name;
-    @SerializedName("lastName")
-    private String lastName;
+    @SerializedName("lastname")
+    private String lastname;
     @SerializedName("email")
     private String email;
     @SerializedName("password")
@@ -23,10 +23,10 @@ public class SOARegisterRequest {
     public SOARegisterRequest() {
     }
 
-    public SOARegisterRequest(String env, String name, String lastName, String email, String password, long dni, long commission, long group) {
+    public SOARegisterRequest(String env, String name, String lastname, String email, String password, long dni, long commission, long group) {
         this.env = env;
         this.name = name;
-        this.lastName = lastName;
+        this.lastname = lastname;
         this.email = email;
         this.password = password;
         this.dni = dni;
@@ -50,12 +50,12 @@ public class SOARegisterRequest {
         this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getEmail() {

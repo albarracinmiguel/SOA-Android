@@ -12,7 +12,7 @@ import retrofit2.http.POST;
 
 public interface SOAApi {
 
-    @Headers({"content-Type: application/json", "x-csrf-token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NTQ1MzI0MTAsInR5cGUiOiJpbmljaWFsIiwidXNlciI6eyJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwiZG5pIjoxMjM0NTY3OCwiZ3JvdXAiOjF9fQ.L7c-SG6kdoUpv-LtAsQBJ45zvvFajFJa8DRIWdLwYn0"})
+    @Headers({"content-type: application/json"})
     @POST(Constants.SOA_API + "register")
     Call<SOARegisterResponse> register(@Body SOARegisterRequest request);
 
